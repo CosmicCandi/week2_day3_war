@@ -8,4 +8,10 @@ class Card
     self.value = value
   end
 
+  def <
+  end
+
+  def >
+  end
+
 end

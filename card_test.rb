@@ -6,7 +6,6 @@ class Card_Test < MiniTest::Test
   # A Card has a suit, face and value
   def test_card_has_a_suit
     card = Card.new("Clubs", "King", 13)
-    puts card.inspect
     assert card.suit != nil
   end
 
@@ -48,10 +47,10 @@ class Card_Test < MiniTest::Test
     card3 = Card.new("Clubs", "Ace", 14)
     card4 = Card.new("Spades", 10, 10)
 
-    assert card1 < card2
-    assert card2 <= card1
-    assert card3 < card4
-    assert card4 <= card1
+    assert card1.value < card2.value
+    assert card2.value > card1.value
+    assert card3.value > card4.value
+    assert card4.value > card1.value
   end
 
 end
