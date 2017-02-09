@@ -1,5 +1,7 @@
 require 'minitest/autorun'
-require 'card.rb'
+require './card.rb'
+require './deck.rb'
+require 'pry'
 
 class Deck_Test < MiniTest::Test
 
@@ -8,10 +10,17 @@ class Deck_Test < MiniTest::Test
 
   # A deck has 52 cards
   def test_a_deck_has_52_cards
+    deck = Deck.new
+    assert deck.cards.length == 52
   end
 
   # A deck contains 13 of each suit
+  #Unable to get this functionality working.
   def test_a_deck_contains_13_of_each_suit
+    # deck = Deck.new
+    # test_array = []
+    # test_array << deck.cards.face.include?("Diamonds")
+    # binding.pry
   end
 
   # A deck contains four of each face of cards
@@ -25,6 +34,5 @@ class Deck_Test < MiniTest::Test
   # A deck can be drawn, and once a card is drawn, the deck has one less card in it
   def test_a_card_can_be_drawn_and_no_longer_resides_in_the_deck
   end
-
 
 end

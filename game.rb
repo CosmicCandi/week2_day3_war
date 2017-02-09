@@ -1,12 +1,16 @@
 # Deliverables
 ### Explorer Mode ###
-# A github repo containing (at least) five files: deck.rb, card.rb, deck_test.rb, card_test.rb, and game.rb
-# The game is won by the player who has the most cards captured once both players have exhausted their initial decks.
+# A github repo containing (at least) five files: deck.rb, card.rb, deck_test.rb,
+# card_test.rb, and game.rb
+# The game is won by the player who has the most cards captured once both players
+# have exhausted their initial decks.
 # Ties are discarded.
-# When I run ruby game.rb on the command line, the script will run a simulated game and output the results as such: Player 1 won this game after 123 rounds and survived 23 WARs. Would you like a rematch (y/n)?
-# Notes: A round is one card played by each player. A rematch should kick off another simulated game. Otherwise, the program exits with a
+# When I run ruby game.rb on the command line, the script will run a simulated
+# game and output the results as such: Player 1 won this game after 123 rounds and
+# survived 23 WARs. Would you like a rematch (y/n)?
+# Notes: A round is one card played by each player. A rematch should kick off
+# another simulated game. Otherwise, the program exits with a
 #"Thanks for playing" message.
-# Your card and deck classes should be tested for the following:
 
 
 # Adventure Mode
