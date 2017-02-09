@@ -32,4 +32,12 @@ class Deck
     cards.shuffle!
   end
 
+  def draw_a_card
+    cards.shift
+  end
+
+
+
+
+
 end
