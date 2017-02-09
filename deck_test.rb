@@ -17,10 +17,11 @@ class Deck_Test < MiniTest::Test
   # A deck contains 13 of each suit
   #Unable to get this functionality working.
   def test_a_deck_contains_13_of_each_suit
-    # deck = Deck.new
-    # test_array = []
-    # test_array << deck.cards.face.include?("Diamonds")
-    # binding.pry
+    #  deck = Deck.new
+    #  test_array = []
+    #  test_array << deck.suit.inspect
+    #  binding.pry
+
   end
 
   # A deck contains four of each face of cards
