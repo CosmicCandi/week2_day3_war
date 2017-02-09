@@ -43,7 +43,15 @@ class Card_Test < MiniTest::Test
 
   # Cards can be directly compared using > and <
   def test_two_cards_can_be_directly_compared
+    card1 = Card.new("Hearts", 3, 3)
+    card2 = Card.new("Diamonds", 4, 4)
+    card3 = Card.new("Clubs", "Ace", 14)
+    card4 = Card.new("Spades", 10, 10)
 
+    assert card1 < card2
+    assert card2 <= card1
+    assert card3 < card4
+    assert card4 <= card1
   end
 
 end
