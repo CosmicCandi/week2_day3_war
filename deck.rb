@@ -3,15 +3,11 @@ require './card.rb'
 
 class Deck
 
-  attr_accessor :cards, :suit, :face, :value
+  attr_accessor :cards
 
   def initialize
     deck_building
     shuffle_up_and_deal
-    @suit = suit
-    @face = face
-    @value = value
-
   end
 
   def deck_building
@@ -35,7 +31,6 @@ class Deck
   def draw_a_card
     cards.shift
   end
-
 
 
 

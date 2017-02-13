@@ -1,5 +1,7 @@
 class Card
 
+  include Comparable
+
   attr_accessor :suit, :face, :value
 
   def initialize(suit, face, value )
@@ -8,10 +10,12 @@ class Card
     self.value = value
   end
 
-  def <
+  def <=>(other)
+    if other.is_a? Card
+      value <=> other.value
+    else
+      super(other)
+    end
   end
-
-  def >
-  end
-
+  
 end

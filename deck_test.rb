@@ -11,17 +11,13 @@ class Deck_Test < MiniTest::Test
   # A deck has 52 cards
   def test_a_deck_has_52_cards
     deck = Deck.new
-    assert deck.cards.length == 52
+    assert_equal 52, deck.cards.length
   end
 
   # A deck contains 13 of each suit
   #Unable to get this functionality working.
   def test_a_deck_contains_13_of_each_suit
-    #  deck = Deck.new
-    #  test_array = []
-    #  test_array << deck.suit.inspect
-    #  binding.pry
-
+    b
   end
 
   # A deck contains four of each face of cards

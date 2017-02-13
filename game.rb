@@ -19,73 +19,96 @@ require 'pry'
 # have exhausted their initial decks.
 class Game
 
-  attr_accessor :player1, :player2, :p1_current_card, :p2_current_card
+  attr_accessor :player1,
+                :player2,
+                :p1_current_card,
+                :p2_current_card,
+                :player1_winnings,
+                :player2_winnings,
+                :discard,
+                :rounds,
+                :ties
 
   def initialize
-    @player1 = player1
-    @player2 = player2
+    @player1 = Deck.new
+    @player2 = Deck.new
     @p1_current_card = p1_current_card
     @p2_current_card = p2_current_card
-  end
+    @player1_winnings = []
+    @player2_winnings = []
+    @discard = []
+    @rounds = 0
+    @war_counter = 0
 
-  prompt = TTY::Prompt.new
-
-  while prompt.yes?("Would you like to play a game of War?")
-
-    player1 = Deck.new
-    player2 = Deck.new
-
-    puts "This is Player 1's deck"
-    puts player1.inspect
-    binding.pry
-    puts "========================"
-    puts "\n"
-    puts "This is Player 2's deck"
-    puts player2.inspect
+    new_game
 
   end
 
   def new_game
+    prompt = TTY::Prompt.new
+    prompt.yes?("Would you like to play a game of war?")
+    if prompt
+        play
+    else
+      quitting_is_for_quitters
+    end
   end
 
-  def draw_a_card
-    #Setup arrays to collect the winning cards.
-    #This will be used later to declare the winner.
-    player1_winnings = []
-    player2_winnings = []
+  def play
+    draw_and_show
+  end
 
-    #Setup arrays to collect the discarded cards in case of a tie
-    discard = []
-
-
-    #Setup arrays to hold the current card for each player for comparison
-    #Each card will be pushed out of the array after it's been compared
+  def draw_and_show
     self.p1_current_card = []
     self.p2_current_card = []
-    self.p1_current_card << player1.draw_a_card
-    self.p2_current_card << player2_draw_a_card
+    puts @p1_current_card << player1.draw_a_card
+    puts @p2_current_card << player2.draw_a_card
+    compare_cards
+  end
+
+  def total_hands(player)
+    hand_total = player.map(&:value).reduce(:+)
   end
 
   def compare_cards
-   if p1_current_card > p2_current_card
-     player1_winnings << p1_current_card
+     "Debugging"
+    puts "Player 1's Current Card"
+    puts p1_current_card.inspect
+    puts "Player 2's Current Card"
+    puts p2_current_card.inspect
+   if total_hands(p1_current_card) > total_hands(p2_current_card)    # Player 1's card is greater
+     player1_winnings << p1_current_card   # Collect both cards for Player 1
      player1_winnings << p2_current_card
-   elsif p1_current_card < p2_current_card
-     player2_winnings << p1_current_card
+     @rounds += 1
+     draw_and_show
+   elsif total_hands(p2_current_card) > total_hands(p1_current_card) # Player 2's card is greater
+     player2_winnings << p1_current_card   # Collect both cards for Player 2
      player2_winnings << p2_current_card
-   else
-     discard << p1_current_card
+     @rounds +=1
+     draw_and_show
+   else                                    # Tie Condition
+     discard << p1_current_card            # Discard both cards
      discard << p2_current_card
+     @rounds +=1
+     @war_counter += 1
+     draw_and_show
    end
   end
 
   def end_game
+    until player1.length < 1 || player2.length < 1 do
+      puts "Player x won this game after x rounds and survived #{war_counter} wars!"
+    end
   end
 
-  def round_counter
+
+  def quitting_is_for_quitters
+    puts "War may be hell, but we were just getting started! Come back soon!"
   end
 
 end
+
+Game.new
 
 ### Adventure Mode ###
 # When your deck is empty, you take all the cards you won, shuffle them, and that becomes your new deck.
