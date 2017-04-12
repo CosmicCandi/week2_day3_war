@@ -1,0 +1,26 @@
+War: Order of Play
+
+Both players shuffle their decks
+
+Until a deck is empty:
+  Player 1 turns over a card at the same time Player 2 turns over a card
+
+  Compare cards
+    If Player 1 Card > Player 2
+      Both cards go to Player 1
+      New Round
+    Elsif Player 2 Card > Player 1
+      Both cards go to Player 2
+      New Round
+    Else It's a tie
+      Both cards get discarded
+      Increment the War Counter
+      New round
+    End
+  End
+
+  When a deck is empty, print the results to the console in the following format: "Player_x won this game after x rounds and survived war_counter Wars. Would you like a rematch?"
+      If rematch,
+        New Game
+      Else
+        "Thanks for playing"

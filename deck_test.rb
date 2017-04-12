@@ -17,7 +17,6 @@ class Deck_Test < MiniTest::Test
   # A deck contains 13 of each suit
   #Unable to get this functionality working.
   def test_a_deck_contains_13_of_each_suit
-    b
   end
 
   # A deck contains four of each face of cards

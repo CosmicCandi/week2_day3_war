@@ -21,28 +21,19 @@ class Game
 
   attr_accessor :player1,
                 :player2,
-                :p1_current_card,
-                :p2_current_card,
                 :player1_winnings,
                 :player2_winnings,
-                :discard,
                 :rounds,
                 :ties
 
   def initialize
     @player1 = Deck.new
     @player2 = Deck.new
-    @p1_current_card = p1_current_card
-    @p2_current_card = p2_current_card
     @player1_winnings = []
     @player2_winnings = []
-    @discard = []
     @rounds = 0
-    @war_counter = 0
-
-    new_game
-
-  end
+    @ties = 0
+    end
 
   def new_game
     prompt = TTY::Prompt.new
@@ -55,52 +46,36 @@ class Game
   end
 
   def play
-    draw_and_show
+    until @player1.cards.empty?
+      draw_and_show
+    end
+    end_game
   end
 
   def draw_and_show
-    self.p1_current_card = []
-    self.p2_current_card = []
-    puts @p1_current_card << player1.draw_a_card
-    puts @p2_current_card << player2.draw_a_card
-    compare_cards
-  end
-
-  def total_hands(player)
-    hand_total = player.map(&:value).reduce(:+)
-  end
-
-  def compare_cards
-     "Debugging"
-    puts "Player 1's Current Card"
-    puts p1_current_card.inspect
-    puts "Player 2's Current Card"
-    puts p2_current_card.inspect
-   if total_hands(p1_current_card) > total_hands(p2_current_card)    # Player 1's card is greater
-     player1_winnings << p1_current_card   # Collect both cards for Player 1
-     player1_winnings << p2_current_card
-     @rounds += 1
-     draw_and_show
-   elsif total_hands(p2_current_card) > total_hands(p1_current_card) # Player 2's card is greater
-     player2_winnings << p1_current_card   # Collect both cards for Player 2
-     player2_winnings << p2_current_card
-     @rounds +=1
-     draw_and_show
-   else                                    # Tie Condition
-     discard << p1_current_card            # Discard both cards
-     discard << p2_current_card
-     @rounds +=1
-     @war_counter += 1
-     draw_and_show
-   end
-  end
-
-  def end_game
-    until player1.length < 1 || player2.length < 1 do
-      puts "Player x won this game after x rounds and survived #{war_counter} wars!"
+    @rounds +=1
+    p1_current_card = player1.draw_a_card
+    p2_current_card = player2.draw_a_card
+    if p1_current_card > p2_current_card
+      @player1_winnings << p1_current_card
+      @player1_winnings << p2_current_card
+    elsif p2_current_card > p1_current_card
+      @player2_winnings << p1_current_card
+      @player2_winnings << p2_current_card
+    else
+     @ties += 1
     end
   end
 
+  def end_game
+    if @player1_winnings.length > @player2_winnings.length
+      puts "Player One won after #{@rounds} rounds and survived #{@war_counter} wars!"
+    elsif @player2_winnings.length > @player1_winnings.length
+      puts "Player Two won after #{@rounds} rounds and survived #{@war_counter} wars!"
+    else
+      puts "We tied after #{@rounds} rounds and #{@war_counter} WARS!"
+    end
+  end
 
   def quitting_is_for_quitters
     puts "War may be hell, but we were just getting started! Come back soon!"
@@ -108,7 +83,7 @@ class Game
 
 end
 
-Game.new
+Game.new.new_game
 
 ### Adventure Mode ###
 # When your deck is empty, you take all the cards you won, shuffle them, and that becomes your new deck.
