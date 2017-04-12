@@ -23,6 +23,7 @@ class Game
                 :player2,
                 :player1_winnings,
                 :player2_winnings,
+                :prompt,
                 :rounds,
                 :ties
 
@@ -31,15 +32,19 @@ class Game
     @player2 = Deck.new
     @player1_winnings = []
     @player2_winnings = []
+    @prompt = TTY::Prompt.new
     @rounds = 0
     @ties = 0
     end
 
   def new_game
-    prompt = TTY::Prompt.new
-    prompt.yes?("Would you like to play a game of war?")
-    if prompt
-        play
+    play
+  end
+
+  def rematch
+    play_again = prompt.yes?("Would you like a rematch?")
+    if play_again
+        Game.new.new_game
     else
       quitting_is_for_quitters
     end
@@ -69,12 +74,13 @@ class Game
 
   def end_game
     if @player1_winnings.length > @player2_winnings.length
-      puts "Player One won after #{@rounds} rounds and survived #{@war_counter} wars!"
+      puts "Player One won after #{@rounds} rounds and survived #{@ties} wars!"
     elsif @player2_winnings.length > @player1_winnings.length
-      puts "Player Two won after #{@rounds} rounds and survived #{@war_counter} wars!"
+      puts "Player Two won after #{@rounds} rounds and survived #{@ties} wars!"
     else
-      puts "We tied after #{@rounds} rounds and #{@war_counter} WARS!"
+      puts "We tied after #{@rounds} rounds and #{@ties} WARS!"
     end
+    rematch
   end
 
   def quitting_is_for_quitters
